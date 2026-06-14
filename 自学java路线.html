@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>软件开发学习计划</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --bg-1: #fff8ef;
+            --bg-2: #f5eee5;
+            --bg-3: #eef2ef;
+            --glass: rgba(255, 255, 255, 0.66);
+            --glass-strong: rgba(255, 255, 255, 0.82);
+            --line: rgba(176, 145, 113, 0.18);
+            --text-main: #2e2924;
+            --text-soft: #7b7068;
+            --text-faint: #a1968d;
+            --orange: #d99a68;
+            --orange-soft: #fff0df;
+            --green-soft: #edf3ee;
+            --blue-soft: #edf3f7;
+            --shadow: 0 18px 50px rgba(97, 70, 45, 0.10);
+            --shadow-soft: 0 10px 26px rgba(97, 70, 45, 0.08);
+            --radius-lg: 28px;
+            --radius-md: 20px;
+            --radius-sm: 999px;
+        }
+
+        * { box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            margin: 0;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding: 26px 14px 54px;
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Microsoft YaHei", sans-serif;
+            line-height: 1.7;
+            background:
+                radial-gradient(circle at 10% 8%, rgba(255, 214, 168, 0.66), transparent 34%),
+                radial-gradient(circle at 90% 4%, rgba(218, 229, 214, 0.76), transparent 32%),
+                radial-gradient(circle at 86% 86%, rgba(246, 198, 156, 0.44), transparent 36%),
+                linear-gradient(135deg, var(--bg-1), var(--bg-2) 48%, var(--bg-3));
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.28) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.24) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,0.30), transparent 75%);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.30), transparent 75%);
+        }
+
+        .page {
+            width: min(1040px, 100%);
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero {
+            margin-top: 10px;
+            padding: 28px 24px;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.76);
+            background: linear-gradient(135deg, rgba(255,255,255,0.78), rgba(255,247,237,0.58));
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 176px;
+            height: 176px;
+            right: -54px;
+            top: -56px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(236, 175, 118, 0.30), transparent 68%);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 12px;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 240, 223, 0.88);
+            border: 1px solid rgba(217, 154, 104, 0.22);
+            color: #9a6847;
+            font-size: 12px;
+            font-weight: 650;
+            margin-bottom: 14px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(28px, 5vw, 38px);
+            letter-spacing: -0.04em;
+            line-height: 1.16;
+        }
+
+        .subtitle {
+            margin-top: 10px;
+            max-width: 620px;
+            font-size: 14px;
+            line-height: 1.85;
+            color: var(--text-soft);
+        }
+
+        .summary-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .summary-card {
+            padding: 14px 14px 13px;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.56);
+            border: 1px solid rgba(255,255,255,0.70);
+        }
+
+        .summary-num {
+            font-size: 20px;
+            font-weight: 760;
+            letter-spacing: -0.03em;
+        }
+
+        .summary-label {
+            margin-top: 3px;
+            font-size: 12px;
+            color: var(--text-soft);
+        }
+
+        .quick-nav {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .quick-nav a {
+            text-decoration: none;
+            color: var(--text-soft);
+            font-size: 12px;
+            padding: 7px 11px;
+            border-radius: var(--radius-sm);
+            background: rgba(255,255,255,0.6);
+            border: 1px solid rgba(255,255,255,0.72);
+            box-shadow: 0 6px 18px rgba(97, 70, 45, 0.05);
+        }
+
+        .content-list {
+            margin-top: 18px;
+            display: grid;
+            gap: 16px;
+        }
+
+        .section {
+            padding: 18px;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.70);
+            background: var(--glass);
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 2px 2px 14px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 760;
+            letter-spacing: -0.02em;
+            min-width: 0;
+        }
+
+        .section-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e7b47d, #c88964);
+            box-shadow: 0 0 0 6px rgba(217, 154, 104, 0.14);
+            flex-shrink: 0;
+        }
+
+        .section-count {
+            padding: 6px 10px;
+            border-radius: var(--radius-sm);
+            background: rgba(255,255,255,0.58);
+            color: var(--text-soft);
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .intro-text,
+        p {
+            margin: 0 0 10px;
+            color: var(--text-soft);
+            font-size: 14px;
+        }
+
+        strong { color: #4a403a; }
+
+        ul {
+            margin: 0 0 0 18px;
+            padding: 0;
+            color: var(--text-soft);
+        }
+
+        li {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin: 6px 0 0;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 9px;
+            border-radius: var(--radius-sm);
+            background: rgba(246, 242, 236, 0.86);
+            border: 1px solid rgba(176, 145, 113, 0.15);
+            color: var(--text-soft);
+            font-size: 12px;
+            line-height: 1.1;
+            white-space: nowrap;
+        }
+
+        .tag.primary {
+            background: var(--orange-soft);
+            color: #9c6742;
+            border-color: rgba(217, 154, 104, 0.18);
+        }
+
+        .tag.secondary {
+            background: var(--blue-soft);
+            color: #5f7580;
+            border-color: rgba(113, 145, 159, 0.14);
+        }
+
+        .tag.green {
+            background: var(--green-soft);
+            color: #667765;
+            border-color: rgba(122, 146, 119, 0.14);
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.44);
+            border: 1px solid rgba(255,255,255,0.66);
+            margin-top: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            min-width: 640px;
+        }
+
+        th, td {
+            padding: 13px 14px;
+            text-align: left;
+            border-bottom: 1px solid rgba(176, 145, 113, 0.14);
+            color: var(--text-soft);
+            vertical-align: top;
+        }
+
+        th {
+            background: rgba(255, 240, 223, 0.76);
+            color: #8e5f40;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .timeline {
+            display: grid;
+            gap: 12px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 18px;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 16px;
+            bottom: -12px;
+            width: 2px;
+            background: linear-gradient(to bottom, rgba(217,154,104,0.32), rgba(217,154,104,0.05));
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-card,
+        .card,
+        .tool-item,
+        .highlight {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-md);
+            background: linear-gradient(145deg, rgba(255,255,255,0.84), rgba(255,248,241,0.62));
+            border: 1px solid rgba(255,255,255,0.78);
+            box-shadow: 0 8px 16px rgba(97, 70, 45, 0.04);
+        }
+
+        .timeline-card::after,
+        .card::after,
+        .tool-item::after,
+        .highlight::after {
+            content: "";
+            position: absolute;
+            width: 92px;
+            height: 92px;
+            right: -32px;
+            bottom: -34px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(217, 154, 104, 0.16), transparent 70%);
+        }
+
+        .timeline-card {
+            padding: 16px 16px 14px;
+        }
+
+        .timeline-top {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-title {
+            margin: 0;
+            font-size: 17px;
+            line-height: 1.45;
+            color: #342f2a;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-card p,
+        .timeline-card ul,
+        .highlight p,
+        .highlight ul,
+        .card p,
+        .tool-item p {
+            position: relative;
+            z-index: 1;
+        }
+
+        .highlight {
+            padding: 13px 14px 12px;
+            margin-top: 12px;
+        }
+
+        .highlight-title {
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #8e5f40;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tool-grid,
+        .card-grid {
+            display: grid;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .tool-grid {
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+
+        .card-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .tool-item,
+        .card {
+            padding: 16px 15px 14px;
+        }
+
+        .tool-item i,
+        .card h4 i {
+            color: var(--orange);
+        }
+
+        .tool-item i {
+            font-size: 20px;
+            margin-bottom: 10px;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tool-item h4,
+        .card h4 {
+            margin: 0 0 6px;
+            font-size: 16px;
+            color: #342f2a;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card h4 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-note {
+            margin: 18px 3px 0;
+            color: var(--text-faint);
+            font-size: 12px;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        footer {
+            margin-top: 18px;
+            padding: 16px 18px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.52);
+            border: 1px solid rgba(255,255,255,0.70);
+            color: var(--text-soft);
+            font-size: 13px;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(97, 70, 45, 0.04);
+        }
+
+
+
+        /* 轻微浮动：保留原版鼠标滑过时的呼吸感，但比原版更克制 */
+        .section,
+        .timeline-card,
+        .tool-item,
+        .card,
+        .highlight,
+        .summary-card,
+        .quick-nav a {
+            transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, opacity 0.22s ease;
+            will-change: transform;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .section:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 14px 34px rgba(97, 70, 45, 0.10);
+            }
+
+            .timeline-card:hover,
+            .tool-item:hover,
+            .card:hover,
+            .highlight:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 26px rgba(97, 70, 45, 0.09);
+            }
+
+            .summary-card:hover,
+            .quick-nav a:hover {
+                transform: translateY(-2px);
+                background: rgba(255,255,255,0.76);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .section,
+            .timeline-card,
+            .tool-item,
+            .card,
+            .highlight,
+            .summary-card,
+            .quick-nav a {
+                transition: none;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .tool-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 720px) {
+            body { padding: 18px 12px 44px; }
+            .hero { padding: 24px 20px; border-radius: 25px; }
+            .summary-row { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .summary-card { padding: 12px 10px; }
+            .summary-num { font-size: 17px; }
+            .summary-label { font-size: 11px; }
+            .quick-nav { gap: 7px; }
+            .section { padding: 15px; border-radius: 24px; }
+            .section-head { padding-bottom: 12px; }
+            .timeline-card,
+            .tool-item,
+            .card,
+            .highlight { padding: 14px 13px 12px; }
+            .tool-grid,
+            .card-grid { grid-template-columns: 1fr; gap: 10px; }
+            .timeline-title { font-size: 16px; }
+            table { min-width: 560px; }
+            th, td { padding: 12px 12px; }
+        }
+
+        @media (max-width: 420px) {
+            h1 { font-size: 26px; }
+            .subtitle,
+            p,
+            li,
+            th,
+            td { font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header class="hero">
+            <div class="eyebrow">Java Learning Roadmap</div>
+            <h1>软件开发学习计划</h1>
+            <div class="subtitle">把自学这件事，拆成看得清、走得稳的阶段。先打基础，再做项目，最后慢慢长成自己的开发体系。</div>
+            <div class="summary-row">
+                <div class="summary-card">
+                    <div class="summary-num">6</div>
+                    <div class="summary-label">个模块</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-num">5</div>
+                    <div class="summary-label">个阶段</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-num">∞</div>
+                    <div class="summary-label">持续进阶</div>
+                </div>
+            </div>
+            <nav class="quick-nav">
+                <a href="#goal">总目标</a>
+                <a href="#prepare">前期准备</a>
+                <a href="#roadmap">学习路线</a>
+                <a href="#tools">辅助工具</a>
+                <a href="#schedule">学习节奏</a>
+                <a href="#advance">后续进阶</a>
+            </nav>
+        </header>
+
+        <main class="content-list">
+            <section class="section" id="goal">
+                <div class="section-head">
+                    <div class="section-title"><span class="section-dot"></span>一、学习总目标</div>
+                    <div class="section-count">4 项</div>
+                </div>
+                <p class="intro-text">通过系统自学，你最终应具备以下能力：</p>
+                <ul>
+                    <li>理解软件开发全过程（需求、设计、编码、测试、上线、维护）</li>
+                    <li>能独立做出一个中小型完整项目（例如网站、App 或桌面软件）</li>
+                    <li>掌握主流工具与工程思维（Git、项目管理、版本控制、协作流程）</li>
+                    <li>能看懂专业文档、参与团队协作，或进入自由职业 / 自媒体开发路线</li>
+                </ul>
+            </section>
+
+            <section class="section" id="prepare">
+                <div class="section-head">
+                    <div class="section-title"><span class="section-dot"></span>二、学习前的准备</div>
+                    <div class="section-count">硬技能</div>
+                </div>
+                <div class="chip-row">
+                    <span class="tag primary">电脑环境</span>
+                    <span class="tag secondary">编辑器</span>
+                    <span class="tag">版本控制</span>
+                    <span class="tag green">运行环境</span>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>类别</th>
+                                <th>说明</th>
+                                <th>建议工具</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>电脑环境</td>
+                                <td>一台能流畅运行 VS Code、浏览器、Git 的电脑</td>
+                                <td>推荐 Win / Mac / Linux 都可</td>
+                            </tr>
+                            <tr>
+                                <td>编辑器</td>
+                                <td>代码编辑器</td>
+                                <td>Visual Studio Code</td>
+                            </tr>
+                            <tr>
+                                <td>版本控制</td>
+                                <td>学会保存和回退代码</td>
+                                <td>Git + GitHub（或 Gitee）</td>
+                            </tr>
+                            <tr>
+                                <td>运行环境</td>
+                                <td>用于跑网页或脚本</td>
+                                <td>Node.js（前端方向）/ Python 环境（后端方向）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="section" id="roadmap">
+                <div class="section-head">
+                    <div class="section-title"><span class="section-dot"></span>三、学习路线（阶段划分）</div>
+                    <div class="section-count">5 个阶段</div>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-card">
+                            <div class="timeline-top">
+                                <span class="tag primary">阶段 1</span>
+                                <span class="tag secondary">1~2个月</span>
+                            </div>
+                            <h3 class="timeline-title">计算机与编程入门</h3>
+                            <p><strong>目标：</strong>理解计算机和代码的基本概念，不死磕数学。</p>
+                            <p><strong>学什么：</strong></p>
+                            <ul>
+                                <li>计算机原理基础（了解 CPU、内存、文件系统）</li>
+                                <li>编程思维（条件、循环、函数、模块）</li>
+                                <li>入门语言：推荐 Python（语法简单，适合工程思维）</li>
+                            </ul>
+                            <div class="highlight">
+                                <div class="highlight-title">推荐资源</div>
+                                <p>📺 视频：B 站「程序员鱼皮」：《Python 入门教程（零基础）》、YouTube：「freeCodeCamp Python for Beginners」</p>
+                                <p>📚 书籍：《Python编程：从入门到实践》、《Head First Programming》</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-card">
+                            <div class="timeline-top">
+                                <span class="tag primary">阶段 2</span>
+                                <span class="tag secondary">2~3个月</span>
+                            </div>
+                            <h3 class="timeline-title">前端开发基础</h3>
+                            <p><strong>目标：</strong>能做出网页并理解“用户界面 + 逻辑 + 交互”。</p>
+                            <p><strong>学什么：</strong></p>
+                            <ul>
+                                <li>HTML + CSS（网页结构和样式）</li>
+                                <li>JavaScript（交互逻辑）</li>
+                                <li>浏览器与调试工具</li>
+                                <li>学会用 VS Code 实时预览网页</li>
+                            </ul>
+                            <div class="highlight">
+                                <div class="highlight-title">推荐资源</div>
+                                <p>📺 视频：B 站「黑马程序员」：《前端入门到精通》、YouTube：「Web Dev Simplified」HTML / CSS / JS 系列</p>
+                                <p>📚 书籍：《Head First HTML & CSS》、《JavaScript DOM 编程艺术》</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-card">
+                            <div class="timeline-top">
+                                <span class="tag primary">阶段 3</span>
+                                <span class="tag secondary">2~3个月</span>
+                            </div>
+                            <h3 class="timeline-title">前端工程化与项目实践</h3>
+                            <p><strong>目标：</strong>从网页变成真正的软件项目。</p>
+                            <p><strong>学什么：</strong></p>
+                            <ul>
+                                <li>Git + GitHub 项目管理</li>
+                                <li>Node.js & npm（包管理工具）</li>
+                                <li>前端框架：React（现代软件工程标配）</li>
+                                <li>API 调用与数据交互</li>
+                            </ul>
+                            <div class="highlight">
+                                <div class="highlight-title">推荐资源</div>
+                                <p>📺 视频：B 站「Coderwhy」React 全家桶教程、YouTube：「Traversy Media」React Crash Course</p>
+                                <p>📚 书籍：《React 进阶之路》、《深入浅出 Node.js》（部分章节）</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-card">
+                            <div class="timeline-top">
+                                <span class="tag primary">阶段 4</span>
+                                <span class="tag secondary">2个月</span>
+                            </div>
+                            <h3 class="timeline-title">软件工程核心思想</h3>
+                            <p><strong>目标：</strong>理解“做项目”的完整流程。</p>
+                            <p><strong>学什么：</strong></p>
+                            <ul>
+                                <li>软件生命周期：需求分析 → 设计 → 编码 → 测试 → 部署 → 维护</li>
+                                <li>版本控制（Git Flow）</li>
+                                <li>测试与质量保障（单元测试）</li>
+                                <li>项目管理（Scrum、敏捷开发）</li>
+                            </ul>
+                            <div class="highlight">
+                                <div class="highlight-title">推荐资源</div>
+                                <p>📺 视频：B 站「极客时间」或「阿里云开发者」的软件工程系列讲解</p>
+                                <p>📚 书籍：《软件工程：实践者的研究方法》、《人月神话》、《敏捷软件开发：原则、模式与实践》</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-card">
+                            <div class="timeline-top">
+                                <span class="tag primary">阶段 5</span>
+                                <span class="tag secondary">持续进阶</span>
+                            </div>
+                            <h3 class="timeline-title">综合实战项目</h3>
+                            <p><strong>目标：</strong>从“学生”变“开发者”。</p>
+                            <p><strong>可选方向：</strong></p>
+                            <ul>
+                                <li>✅ 个人网站 / 博客系统（前端 + 后端）</li>
+                                <li>✅ 小岛周末导航页升级版（加用户系统、数据存储）</li>
+                                <li>✅ 旅行相册 App / 备忘录 App</li>
+                                <li>✅ 公众号 + 静态网页整合项目</li>
+                            </ul>
+                            <div class="highlight">
+                                <div class="highlight-title">实践建议</div>
+                                <ul>
+                                    <li>用 GitHub 建立公开项目仓库</li>
+                                    <li>每周写一份开发日志</li>
+                                    <li>尝试把作品部署上线（Netlify、Vercel、Coding Pages）</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="tools">
+                <div class="section-head">
+                    <div class="section-title"><span class="section-dot"></span>四、辅助学习工具</div>
+                    <div class="section-count">5 项</div>
+                </div>
+                <div class="tool-grid">
+                    <div class="tool-item">
+                        <i class="fas fa-sticky-note"></i>
+                        <h4>Notion / Obsidian</h4>
+                        <p>学习笔记管理</p>
+                    </div>
+                    <div class="tool-item">
+                        <i class="fab fa-github"></i>
+                        <h4>GitHub</h4>
+                        <p>代码托管与作品展示</p>
+                    </div>
+                    <div class="tool-item">
+                        <i class="fas fa-robot"></i>
+                        <h4>ChatGPT</h4>
+                        <p>随时答疑、代码检查、项目规划</p>
+                    </div>
+                    <div class="tool-item">
+                        <i class="fas fa-project-diagram"></i>
+                        <h4>draw.io</h4>
+                        <p>软件架构图、流程图绘制</p>
+                    </div>
+                    <div class="tool-item">
+                        <i class="fas fa-palette"></i>
+                        <h4>Figma</h4>
+                        <p>UI 原型设计</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="schedule">
+                <div class="section-head">
+                    <div class="section-title"><span class="section-dot"></span>五、推荐学习节奏</div>
+                    <div class="section-count">时间安排</div>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>阶段</th>
+                                <th>时间</th>
+                                <th>每周投入</th>
+                                <th>重点</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>入门</td>
+                                <td>1~2月</td>
+                                <td>每天 1~2 小时</td>
+                                <td>理解代码逻辑</td>
+                            </tr>
+                            <tr>
+                                <td>前端基础</td>
+                                <td>2~3月</td>
+                                <td>每天 2 小时</td>
+                                <td>掌握 HTML / CSS / JS</td>
+                            </tr>
+                            <tr>
+                                <td>前端工程化</td>
+                                <td>2~3月</td>
+                                <td>每天 2~3 小时</td>
+                                <td>构建现代项目</td>
+                            </tr>
+                            <tr>
+                                <td>软件工程理论</td>
+                                <td>2月</td>
+                                <td>每天 1~2 小时</td>
+                                <td>理解开发流程</td>
+                            </tr>
+                            <tr>
+                                <td>实战项目</td>
+                                <td>持续</td>
+                                <td>自定</td>
+                                <td>作品积累与展示</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="section" id="advance">
+                <div class="section-head">
+                    <div class="section-title"><span class="section-dot"></span>六、后续进阶（选修）</div>
+                    <div class="section-count">4 个方向</div>
+                </div>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4><i class="fas fa-server"></i> 后端路线</h4>
+                        <p>Node.js / Django / Flask</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-mobile-alt"></i> 移动端开发</h4>
+                        <p>React Native / Flutter</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-paint-brush"></i> UI 设计与用户体验</h4>
+                        <p>Figma、交互心理学</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-briefcase"></i> 职业方向</h4>
+                        <p>产品经理 / 前端开发 / 全栈开发 / 创业独立开发者</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div class="footer-note">把路线看清楚，走起来就没那么慌。</div>
+
+        <footer>
+            软件开发学习计划 © 2025 ｜ 一泽
+        </footer>
+    </div>
+</body>
+</html>
